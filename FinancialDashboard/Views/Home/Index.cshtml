@@ -3,10 +3,26 @@
 <html>
 <head>
     <title>Financial Data</title>
+    <link href="~/Content/Dashboard.css" rel="stylesheet" />
 </head>
 <body>
-    <div>
-        hello world!
+    <div ng-init="run()" ng-controller="HeaderVizualisationController">
+
+        <bars-chart chart-data="myData"></bars-chart>
+
+        <div class="cls-creditscore-container" style="max-height:calc(100vh - 20px)" ng-show="dataset.length > 0">
+            <div class="cls-hexagon-container">
+                <div class="cls-credituser-data hexagon" ng-repeat="x in dataset| groupBy : CreditScore">
+                    <div ng-class="x.CreditScore >= 750 ? 'cls-score-container excellent' : x.CreditScore < 750 && x.CreditScore > 680 ? 'cls-score-container average': 'cls-score-container poor'">{{x.CreditScore}}</div>
+                    <div class="cls-detail-view tooltip">
+                        <div class="cls-usr-Surname">Name: {{x.Surname}}</div>
+                        <div class="cls-usr-Balance">Current Balance: {{x.Balance}}</div>
+                        <div class="cls-usr-Age">Age: {{x.Age}}</div>
+                    </div>
+                </div>                
+            </div>
+        </div>
     </div>
+
 </body>
 </html>
